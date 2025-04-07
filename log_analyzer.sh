@@ -8,8 +8,6 @@ LOG_FILE="/var/log/syslog"
 #Fil där analysrapporterna sparas
 REPORT_FILE="log_report.txt"
 
-MAX_LINES=5
-
 #Läser användarinput för att bestämma hur många rader som ska analyseras
 echo "Ange max antal rader som ska analyseras: "
 read MAX_LINES
