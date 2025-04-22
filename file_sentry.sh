@@ -16,16 +16,16 @@ trap 'echo "Skript avbrutet!"; rm -f "$TEMP_FILE"; exit 1' INT TERM EXIT
 log_message(){
     local_level="$1" #INFO, WARNING, ERROR
     local_message="$2" 
-    printf "%s[%s]%s\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$level" "$message" >> "$LOG_FILE"
+    printf "%s[%s]%s\n" "$(date '+%Y-%m-%d %H:%M:%S')" "$local_level" "$local_message" >> "$LOG_FILE"
 }
 
-if [[-z "$TARGET_DIR" ]]; then
+if [[ -z "$TARGET_DIR" ]]; then
     log_message "ERROR" "Ingen katalog angiven. Använd: ./file_sentry.sh <katalog>"
     echo "Fel: Ange en katalog!" >&2
     exit 1
 fi
 
-if [[! -d "$TARGET_DIR" ]]; then
+if [[ ! -d "$TARGET_DIR" ]]; then
     log_message "ERROR" "$TARGET_DIR är inte en katalog."
     echo "Fel: $TARGET_DIR finns inte eller är inte en katalog!." >&2
     exit 1
@@ -43,11 +43,11 @@ while read -r size perms name; do
 fi
 
 #Kontrollera körbara rättigheter
-if [["$perms" =~x]]; then
+if [[ "$perms" =~ x ]]; then
     log_message "WARNING" "Körbar fil: $name ($perms)"
     echo "Varning: $name är körbar!" >&2
 fi
-done < "$TEMPFILE"
+done < "$TEMP_FILE"
 
 log_message "INFO" "Skanning klar."
 rm -f "$TEMP_FILE"
