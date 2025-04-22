@@ -39,7 +39,7 @@ grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}' "$TMP_FILE" | sort | uniq -c | sort -nr >
 
 #Flagga IP:n som "Hög risk" om mer än 20 misslyckade försök
 echo "IP:er med hög risk (över 20 misslyckade försök):" >> "$REPORT_FILE"
-awk '$1 > 20 && $2 ~ /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/ {print "Hög risk:", $2}' "$TMP_FILE" | sort | uniq >> "$REPORT_FILE"
+grep 'Failed password' $TMP_FILE | awk '$1 > 20 && $2 ~ /^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/ {print "Hög risk:", $2}' "$TMP_FILE" | sort | uniq >> "$REPORT_FILE"
 
 #Skapa statistik per användarnamn
 echo "Statistik per användarnamn:" >> "$REPORT_FILE"
