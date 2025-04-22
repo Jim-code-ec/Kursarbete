@@ -10,8 +10,6 @@
 
 # Tidsformat för senaste 24h
 SINCE_DATE=$(date --date="24 hours ago" +"%b %e")
-# MÖnster att övervaka
-PATTERNS="Failed password" "Invalid user" "Accepted password" "session opened"
 # Loggfiler som ska övervakas
 LOGFILES="/var/log/auth.log /var/log/syslog"
 BACKUP_DIR="/backup/logs"
@@ -21,7 +19,7 @@ BACKUP_DAYS=7 #Antal dagar att behålla loggar
 # Rapporten kommer att sparas i /tmp-katalogen
 REPORT_FILE="security_report_$(date +%Y%m%d).txt"
 SECURITY_LOG="/var/log/security_actions.log"
-ADMIN_EMAIL="admin@admin.se"
+ADMIN_EMAIL="jim.nilsson@utb.ecutbildning.se"
 TMP_FILE=$(mktemp)
 HOG_RISK_IPS=$(grep "Hög risk:" "$REPORT_FILE" | awk '{print $3}')
  
