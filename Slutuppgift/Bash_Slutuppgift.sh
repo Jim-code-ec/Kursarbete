@@ -111,10 +111,12 @@ echo "Klar"
 
 echo "Tar bort äldre än 7 dagar loggfiler"
 for LOG in $LOGFILES; do
-    if [ -f "$LOG" ] && find "$LOG" -mtime +"$BACKUP_DAYS" | grep -q .; then
+    if [ -f "$LOG" ] && find "$LOG" -mtime +"$BACKUP_DAYS"; then #Ludwig approved
         echo "Tar bort: $LOG"
         rm -f "$LOG"
         echo "$(date '+%Y-%m-%d %H:%M:%S') - Raderade gammal loggfil: $LOG" >> "$SECURITY_LOG"
+    else
+        echo "Behöver inte ta bort $LOG"
     fi
 done
 echo "Klar"
